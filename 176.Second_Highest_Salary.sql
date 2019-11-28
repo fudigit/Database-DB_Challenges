@@ -1,5 +1,5 @@
 /* Write your T-SQL query statement below */
-
+-- 解法1，WITH开新table，MAX处理null的情况
 WITH Result AS
     (
     SELECT
