@@ -26,13 +26,12 @@ FROM Result
 SELECT
     (
     SELECT
-        DISTINCT(Salary) AS "SecondHighestSalary"
+        DISTINCT(Salary)
     FROM Employee
     ORDER BY Salary DESC         --Order by happens after SELECT!
         OFFSET 1 ROWS
         FETCH NEXT 1 ROWS ONLY
     ) AS "SecondHighestSalary"
-
 
 -- Solution 3，巧用where condition，小于最大的，就是第二大的
 SELECT MAX(Salary) AS "SecondHighestSalary"
