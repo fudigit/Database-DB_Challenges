@@ -1,5 +1,5 @@
 /* Write your T-SQL query statement below */
--- solution 1，WITH开新table，MAX处理null的情况
+-- Solution 1，WITH开新table，MAX处理null的情况
 WITH Result AS
     (
     SELECT
@@ -22,7 +22,7 @@ FROM Result
  -- Aggregation function and value cannot be selected at the same time
 
 
---solution 2，第一次SELECT，结果是什么都没有；什么都没有再SELECT一次，结果是null
+--Solution 2，第一次SELECT，结果是什么都没有；什么都没有再SELECT一次，结果是null
 SELECT
     (
     SELECT
@@ -32,3 +32,12 @@ SELECT
         OFFSET 1 ROWS
         FETCH NEXT 1 ROWS ONLY
     ) AS "SecondHighestSalary"
+
+
+-- Solution 3，巧用where condition，小于最大的，就是第二大的
+SELECT MAX(Salary) AS "SecondHighestSalary"
+FROM Employee
+WHERE Salary < (
+    SELECT MAX(Salary)
+    FROM Employee
+    )
