@@ -17,3 +17,19 @@ WHERE
 # DELETE, If you declare an alias for a table, you must use the alias when referring to the table
 # You cannot update a table and select directly from the same table in a subquery. SELECT * FROM(subquery) does the trick!
 # https://dev.mysql.com/doc/refman/5.5/en/delete.html
+
+
+-- V2, not use Alias. Sample table name in subquery is OK, but not recormmended
+DELETE FROM Person
+WHERE
+    Id NOT IN(
+        SELECT *
+        FROM(
+            SELECT
+                MIN(Id) AS smallest_id
+            FROM
+                Person
+            GROUP BY
+                Email
+            ) AS Valid_id
+        )
